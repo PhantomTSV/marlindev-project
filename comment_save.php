@@ -1,9 +1,5 @@
 <?php
-session_start();
-require_once 'config.php';
-
-
-$pdo = new PDO($db_dsn, $db_user, $db_password, $db_options); 
+require_once 'common.php';
 
 
 if (!empty($_POST["user_name"]) && !empty($_POST["message"])) {

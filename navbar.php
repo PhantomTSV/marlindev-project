@@ -1,23 +1,3 @@
-<?php 
-
-if(session_id() == '') {
-    session_start();
-}
-
-if (!empty($_SESSION["user_id"])) {
-    if (empty($pdo)) {
-        require_once 'config.php';
-        $pdo = new PDO($db_dsn, $db_user, $db_password, $db_options); 
-    }
-    $sql = "SELECT * FROM user WHERE id=:id";
-    $statement = $pdo->prepare($sql);
-    $statement->bindValue(':id', $_SESSION["user_id"]);
-    $statement->execute();
-    $current_user = $statement->fetch(PDO::FETCH_ASSOC);
-}
-
-?>
-
 
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
@@ -38,7 +18,7 @@ if (!empty($_SESSION["user_id"])) {
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
 
-                <?php if (empty($_SESSION["user_id"])) { ?>
+                <?php if (empty($current_user)) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
                     </li>

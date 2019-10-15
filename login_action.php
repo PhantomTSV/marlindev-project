@@ -1,10 +1,5 @@
 <?php
-session_start();
-require_once 'config.php';
-
-
-$pdo = new PDO($db_dsn, $db_user, $db_password, $db_options); 
-
+require_once 'common.php';
 
 
 $validation_errors = [];
@@ -30,6 +25,13 @@ if (count($validation_errors) == 0) {
 	if ($user = $statement->fetch(PDO::FETCH_ASSOC)) {
 		if (password_verify( $_POST["password"], $user["password"] )) {
 			$_SESSION["user_id"] = $user["id"];
+
+
+			if ( !empty($_POST["remember"] )) {	
+				setcookie("email", $_POST["email"], time() + 60 * 60 * 24 * 30); // 30 дней
+				setcookie("password", $user["password"], time() + 60 * 60 * 24 * 30);				
+			}
+
 			header('Location: index.php');
 			exit();
 		}

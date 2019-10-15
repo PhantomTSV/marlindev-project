@@ -1,13 +1,8 @@
 <?php
-session_start();
-require_once 'config.php';
+require_once 'common.php';
 
-
-$pdo = new PDO($db_dsn, $db_user, $db_password, $db_options); 
 
 $validation_errors = [];
-
-
 
 if (empty($_POST["name"])) {
 	$validation_errors['name_invalid'] = "Поле должно быть заполнено";

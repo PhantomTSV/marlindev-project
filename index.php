@@ -1,9 +1,6 @@
 <?php
-session_start();
-date_default_timezone_set();
-require_once 'config.php';
+require_once 'common.php';
 
-$pdo = new PDO($db_dsn, $db_user, $db_password, $db_options); 
 $sql = "SELECT * FROM comment ORDER BY pub_date DESC";
 $statement = $pdo->prepare($sql);
 $statement->execute();
